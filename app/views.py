@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import UpdateModelMixin
+# from rest_framework.viewsets import GenericViewSet
+# from rest_framework.mixins import UpdateModelMixin
 from app.models import Product, UserProduct
 from rest_framework.views import APIView
 from app.serializers import ProductDetailSerializers, ReviewCreateSerializer, UserProductSerializers
@@ -28,8 +28,11 @@ class ReviewCreateView(APIView):
         return Response(status=201)
 
 
-class UserProductView(UpdateModelMixin, GenericViewSet):
-    queryset = UserProduct.objects.all()
-    serializer_class = UserProductSerializers
+class UserProductView(APIView):
+    def post(self, request):
+        user = UserProductSerializers(data=request.data)
+        if user.is_valid():
+            user.save()
+        return Response(status=201)
 
 

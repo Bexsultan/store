@@ -15,17 +15,18 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ("name", "text")
+        fields = ("name", "text",)
 
 
 class UserProductSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserProduct
-        fields = ('like', 'rate')
+        fields = "__all__"
 
 
 class ProductDetailSerializers(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
+    rates = UserProductSerializers(many=True)
 
     class Meta:
         model = Product

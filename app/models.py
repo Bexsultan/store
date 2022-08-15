@@ -33,7 +33,7 @@ class UserProduct(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="rates")
     like = models.BooleanField(default=False)
     # in_bookmarks = models.BooleanField(default=False)
     rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
